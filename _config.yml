@@ -1,5 +1,5 @@
-title: "Blog de Jorge De Los Santos"
-description: "Artículos sobre Python, robótica y ciencia de datos"
+title: "jdelossantos"
+description: "Un poco de Python, MATLAB, FEA y Robótica"
 baseurl: "/blog"  # ruta del blog
 url: "https://jorgedelossantos.github.io"
 
