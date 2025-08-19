@@ -32,7 +32,7 @@ $$
 Si tomamos un vector en el plano y lo multiplicamos por esta matriz, notaremos que el vector que resulta está rotado $90°$ en sentido antihorario. Por ejemplo, sea $\vec{u}$ un vector dado por:
 
 $$  
-\vec{u} = \begin{bmatrix} 5 & 0  \end{bmatrix}
+\vec{u} = \begin{bmatrix} 5 \\ 0  \end{bmatrix}
 $$
 
 Si lo multiplicamos por $R$ entonces resulta:
@@ -41,8 +41,28 @@ $$
 \begin{bmatrix}
 0 & -1 \\
 1 & 0 \\
-\end{bmatrix} \begin{bmatrix} 5 & 0  \end{bmatrix} 
-= \begin{bmatrix} 0 & 5  \end{bmatrix}
+\end{bmatrix} \begin{bmatrix} 5 \\ 0  \end{bmatrix} 
+= \begin{bmatrix} 0 \\ 5  \end{bmatrix}
 $$
 
-Observa que est
+Observa que el vector resultante tiene componente distinta de cero únicamente en la dirección de $y$. Pero ¿qué pasaría si en lugar de utilizar $\theta=90°$ usamos $\theta=-90°$? Veamos, ahora $R$ sería:
+
+$$
+R = \begin{bmatrix}
+0 & 1 \\
+-1 & 0 \\
+\end{bmatrix}
+$$
+
+Y entonces:
+
+$$
+\begin{bmatrix}
+0 & 1 \\
+-1 & 0 \\
+\end{bmatrix} \begin{bmatrix} 5 \\ 0  \end{bmatrix} 
+= \begin{bmatrix} 0 \\ -5  \end{bmatrix}
+$$
+
+Notarás que en este caso la componente $y$ es negativa, es decir, ahora el vector ha sido rotado en sentido horario.
+
