@@ -20,7 +20,7 @@ R = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-Por ahora no te preocupes con respecto a de dónde *sale* esta matriz, más adelante nos encargaremos de esto. Si hacemos que $\theta$ tome un valor específico, por ejemplo 90°, entonces la matriz $R$ estaría dada por:
+Por ahora no te preocupes con respecto a de dónde *sale* esta matriz, más adelante nos encargaremos de esto. Si hacemos que $\theta$ tome un valor específico, por ejemplo $90°$, entonces la matriz $R$ estaría dada por:
 
 $$
 R = \begin{bmatrix}
@@ -29,3 +29,20 @@ R = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+Si tomamos un vector en el plano y lo multiplicamos por esta matriz, notaremos que el vector que resulta está rotado $90°$ en sentido antihorario. Por ejemplo, sea $\vec{u}$ un vector dado por:
+
+$$  
+\vec{u} = \begin{bmatrix} 5 & 0  \end{bmatrix}
+$$
+
+Si lo multiplicamos por $R$ entonces resulta:
+
+$$
+\begin{bmatrix}
+0 & -1 \\
+1 & 0 \\
+\end{bmatrix} \begin{bmatrix} 5 & 0  \end{bmatrix} 
+= \begin{bmatrix} 0 & 5  \end{bmatrix}
+$$
+
+Observa que est
