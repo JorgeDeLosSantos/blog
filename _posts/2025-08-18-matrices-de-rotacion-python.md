@@ -19,3 +19,13 @@ R = \begin{bmatrix}
 \sin\theta & \cos\theta
 \end{bmatrix}
 $$
+
+Por ahora no te preocupes con respecto a de dónde *sale* esta matriz, más adelante nos encargaremos de esto. Si hacemos que $\theta$ tome un valor específico, por ejemplo 90°, entonces la matriz $R$ estaría dada por:
+
+$$
+R = \begin{bmatrix}
+0 & -1 \\
+1 & 0 \\
+\end{bmatrix}
+$$
+
