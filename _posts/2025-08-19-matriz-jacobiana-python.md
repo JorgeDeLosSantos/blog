@@ -20,11 +20,12 @@ En este post veremos:
 ## ¿Qué es la matriz jacobiana?
 
 Consideremos un manipulador serial de **n grados de libertad**, descrito por un vector de variables articulares:
+
 $$ \mathbf{q} = [q_1, q_2, ..., q_n]^T $$
 
 El efector final del robot tiene una posición y orientación que podemos agrupar en una variable cartesiana:
 
-$$ \mathbf{x} = f(q) $$
+$$ \mathbf{x} = f(\mathbf{q}) $$
 
 donde $f$ representa la cinemática directa.
 
@@ -48,6 +49,66 @@ donde:
 - $\mathbf{v}$ es la velocidad lineal del efector final
 - $\boldsymbol{\omega}$ es la velocidad angular del efector final
 
-Por lo tanto, para un manipulador serial:
+En general, para un manipulador serial de $n$ grados de libertad, la matriz jacobiana posee siempre 6 filas y tantas columnas como grados de libertad, es decir:
 
 $$ J(\mathbf{q}) \in \mathbb{R}^{6 \times n} $$
+
+La matriz jacobiana es dependiente de la configuración del manipulador serial. Por cuestiones de simplicidad, en lo subsiguiente esto se obviará.
+
+## Para qué sirve la matriz jacobiana
+
+
+### Calcular velocidades del elemento terminal
+
+Si conocemos las velocidades articulares $\dot{\mathbf{q}}$, podemos determinar la velocidad lineal y angular del elemento terminal:
+
+$$ \begin{bmatrix} \mathbf{v} \\ \mathbf{\omega} \end{bmatrix} = J \dot{\mathbf{q}} $$
+
+También es posible calcular las velocidades articulares requeridas $\dot{\mathbf{q}}$ para una determinada velocidad lineal y angular deseada, para esto se usa la inversa de la matriz jacobiana:
+
+$$ \dot{\mathbf{q}} = J^{-1} \begin{bmatrix} \mathbf{v} \\ \mathbf{\omega} \end{bmatrix}  $$
+
+### Análisis de singularidades
+
+La matriz jacobiana también nos permite identificar configuraciones donde el robot pierde grados de libertad (esos momentos donde el robot *se bloquea*). Una configuración de este tipo (denominada configuración singular) ocurre cuando el jacobiano pierde rango, es decir:
+
+$$ \det(J) = 0 $$
+
+### Relacionar fuerzas
+
+La matriz jacobiana también permite *mapear* fuerzas ($\mathbf{F}$) y torques ($\boldsymbol{\mu}$) aplicadas en el extremo del manipulador a las fuerzas/torques que experimentan las articulaciones:
+
+$$  
+\boldsymbol{\tau} = J^T \begin{bmatrix} \mathbf{F} \\ \boldsymbol{\mu} \end{bmatrix}
+$$
+
+Esto es de mucha utilidad sobre en todo en dinámica y control de robots.
+
+## Algoritmo para calcularla
+
+Conocidos: 
+
+$\text{dh\_params = }[(a_1, \alpha_1, d_1, \theta_1), (a_2, \alpha_2, d_2, \theta_2), \cdots, (a_n, \alpha_n, d_n, \theta_n)]$
+
+$\text{joint\_types = } [j_1, j_2, \cdots, j_n]$
+
+$\mathbf{o}_n = \text{compute\_oi(n, dh\_params)}$
+
+$J = 0^{6\times n}$
+
+Para $i=1$ hasta $n$, hacer:
+* $\mathbf{o}_{i-1} = \text{compute\_oi(i-1, dh\_params)}$
+* $\mathbf{z}_{i-1} = \text{compute\_zi(i-1, dh\_params)}$
+* Si $j_i$ es revoluta:
+    - $J_{v_i} = \mathbf{z}_{i-1} \times (\mathbf{o}_n - \mathbf{o}_{i-1}) $
+    - $J_{\omega_i} = \mathbf{z}_{i-1} $
+* Si $j_i$ es prismática:
+    - $ J_{v_i} = \mathbf{z}_{i-1} $
+    - $J_{\omega_i} = \mathbf{0} $
+* $J[:,i] = \begin{bmatrix} J_{v_i} \\ J_{\omega_i} \end{bmatrix}$
+
+
+## Cómo calcularla simbólicamente con SymPy
+
+
+## Cómo calcularla numéricamente con NumPy
