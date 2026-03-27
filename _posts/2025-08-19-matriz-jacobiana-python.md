@@ -86,29 +86,98 @@ Esto es de mucha utilidad sobre en todo en dinámica y control de robots.
 
 ## Algoritmo para calcularla
 
-Conocidos: 
+**Algoritmo: compute_jacobian(dh_params, joint_types)**
 
-$\text{dh\_params = }[(a_1, \alpha_1, d_1, \theta_1), (a_2, \alpha_2, d_2, \theta_2), \cdots, (a_n, \alpha_n, d_n, \theta_n)]$
+**Entrada:**
+- $\text{dh\_params = }[(a_1, \alpha_1, d_1, \theta_1), (a_2, \alpha_2, d_2, \theta_2), \cdots, (a_n, \alpha_n, d_n, \theta_n)]$
+- $\text{joint\_types = } [j_1, j_2, \cdots, j_n]$
 
-$\text{joint\_types = } [j_1, j_2, \cdots, j_n]$
+1. Inicializar:
+   - $T_s \leftarrow [I_4]$
 
-$\mathbf{o}_n = \text{compute\_oi(n, dh\_params)}$
+2. Para $i = 0$ hasta $n-1$:
+   - $T_i \leftarrow T_s[i] \cdot \text{dh\_matrix}(a_i, \alpha_i, d_i, \theta_i)$
+   - $T_s \leftarrow [T_s, T_i] $
 
-$J = 0^{6\times n}$
+3. $\mathbf{o}_n \leftarrow T_s[n]_{0:3,3}$
 
-Para $i=1$ hasta $n$, hacer:
-* $\mathbf{o}_{i-1} = \text{compute\_oi(i-1, dh\_params)}$
-* $\mathbf{z}_{i-1} = \text{compute\_zi(i-1, dh\_params)}$
-* Si $j_i$ es revoluta:
-    - $J_{v_i} = \mathbf{z}_{i-1} \times (\mathbf{o}_n - \mathbf{o}_{i-1}) $
-    - $J_{\omega_i} = \mathbf{z}_{i-1} $
-* Si $j_i$ es prismática:
-    - $ J_{v_i} = \mathbf{z}_{i-1} $
-    - $J_{\omega_i} = \mathbf{0} $
-* $J[:,i] = \begin{bmatrix} J_{v_i} \\ J_{\omega_i} \end{bmatrix}$
+4. $J \leftarrow 0^{6 \times n}$
+
+5. Para $i = 0$ hasta $n-1$:
+   - $\mathbf{o}_{i-1} \leftarrow T_s[i]_{0:3,3}$
+   - $\mathbf{z}_{i-1} \leftarrow T_s[i]_{0:3,2}$
+   - Si $j_i$ es revoluta:
+     - $J_{v_i} \leftarrow \mathbf{z}_{i-1} \times (\mathbf{o}_n - \mathbf{o}_{i-1})$
+     - $J_{\omega_i} \leftarrow \mathbf{z}_{i-1}$
+   - Si $j_i$ es prismática:
+     - $J_{v_i} \leftarrow \mathbf{z}_{i-1}$
+     - $J_{\omega_i} \leftarrow \mathbf{0}$
+   - $J[:,i] \leftarrow \begin{bmatrix} J_{v_i} \\ J_{\omega_i} \end{bmatrix}$
+
+**Salida**
+- Jacobiano: $J \in \mathbb{R}^{6 \times n}$
 
 
 ## Cómo calcularla simbólicamente con SymPy
+
+Ahora veremos cómo calcular la matriz jacobiana utilizando SymPy. Esta librería nos permite utilizar variables simbólicas en los cálculos, lo cual la hace muy útil para cuestiones de enseñanza/aprendizaje. 
+
+Lo primero que haremos es importar la librería:
+
+```python
+import sympy as sp
+```
+
+Y ahora procedemos a definir la función `dh_matrix` que calcula la matriz de Denavit-Hartenberg $A_i$, dados como argumentos los cuatro parámetros ($a_i$, $\alpha_i$, $d_i$, $\theta_i$):
+
+```python
+def dh_matrix(a,alpha,d,theta):
+    ct = sp.cos(theta)
+    st = sp.sin(theta)
+    ca = sp.cos(alpha)
+    sa = sp.sin(alpha)
+    A = sp.Matrix([[ct, -st*ca,  st*sa, a*ct],
+                   [st,  ct*ca, -ct*sa, a*st],
+                   [0,     sa,     ca,    d ],
+                   [0,      0,      0,     1 ]])
+    return A
+```
+
+Definimos la función `compute_jacobian` que calcula la matriz jacobiana:
+
+```python
+def compute_jacobian(dh_params,joint_types):
+    n = len(joint_types)
+    Ts = [sp.eye(4)]
+    for params in dh_params:
+        Ts.append( Ts[-1] * dh_matrix(*params) )
+    
+    on = Ts[n][:3,3]
+    J = sp.zeros(6,n)
+    for i in range(n):
+        z_im1 = Ts[i][:3,2]
+        o_im1 = Ts[i][:3,3]
+
+        if joint_types[i] == "R":
+            Jv = z_im1.cross(on - o_im1)
+            Jw = z_im1
+        elif joint_types[i] == "P":
+            Jv = z_im1
+            Jw = sp.zeros(3,1)
+        J[:3,i] = Jv
+        J[3:,i] = Jw
+    
+    return sp.simplify(J)
+```
+
+Definimos las variables simbólicas a utilizar:
+
+```python
+l1,l2 = sp.symbols("l_1, l_2")
+theta1,theta2 = sp.symbols("theta_1, theta_2")
+```
+
+
 
 
 ## Cómo calcularla numéricamente con NumPy
