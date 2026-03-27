@@ -7,7 +7,7 @@ tags: [robotics,kinematics,python]
 author: Pedro Jorge De Los Santos
 ---
 
-Las matrices de rotación son un tipo de matrices especiales que nos sirven para representar rotaciones de un sólido en el plano o en el espacio. Son muy utilizadas en robótica y en la generación de gráficos por computadora. Aquí nos centraremos en cómo estas matrices nos sirven en robótica para representar la orientación de los eslabones de un manipulador con respecto a un sistema de referencia.
+Las matrices de rotación son un tipo de matrices especiales que nos sirven para representar rotaciones de un sólido en el plano o en el espacio. Son muy utilizadas en robótica y en la generación de gráficos por computadora. Aquí nos centraremos en mostrar cómo estas matrices nos sirven en robótica para representar la orientación de los eslabones de un manipulador con respecto a un sistema de referencia y cómo utilizar Python para realizar operaciones con este tipo de matrices.
 
 ## Una primera aproximación: rotando vectores
 
@@ -45,7 +45,7 @@ $$
 = \begin{bmatrix} 0 \\ 5  \end{bmatrix}
 $$
 
-Observa que el vector resultante tiene componente distinta de cero únicamente en la dirección de $y$. Pero ¿qué pasaría si en lugar de utilizar $\theta=90°$ usamos $\theta=-90°$? Veamos, ahora $R$ sería:
+Observa que el vector resultante tiene componente distinta de cero únicamente en la dirección de $y$. Pero ¿qué pasaría si en lugar de utilizar $\theta=90°$, usamos $\theta=-90°$? Veamos, ahora $R$ sería:
 
 $$
 R = \begin{bmatrix}
@@ -65,4 +65,20 @@ $$
 $$
 
 Notarás que en este caso la componente $y$ es negativa, es decir, ahora el vector ha sido rotado en sentido horario.
+
+## ¿Cómo obtener las matrices de rotación?
+
+
+
+## Propiedades de las matrices de rotación
+
+
+## Matrices de rotación utilizando Python 
+
+### La forma simbólica
+
+
+
+### La forma numérica
+
 

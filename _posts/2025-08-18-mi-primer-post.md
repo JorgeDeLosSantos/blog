@@ -17,5 +17,5 @@ print("Hola Jekyll 🚀")
 Probando ecuaciones:
 
 $$ 
-\frac{partial \mathcal{L}}{\partial \dot{q}_i} - \frac{\partial \mathcal{L}}{\partial q_i} = \tau_i
+\frac{\partial \mathcal{L}}{\partial \dot{q}_i} - \frac{\partial \mathcal{L}}{\partial q_i} = \tau_i
 $$
