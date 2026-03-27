@@ -170,14 +170,35 @@ def compute_jacobian(dh_params,joint_types):
     return sp.simplify(J)
 ```
 
-Definimos las variables simbólicas a utilizar:
+Para probar nuestra función implementada vamos a utilizar el clásico manipulador RR planar, cuyos parámetros de Denavit-Hartenberg están dados en la siguiente tabla:
+
+|  $i$  | $a_i$  | $ \alpha_i $ | $ d_i $ | $ \theta_i $ |
+|:---:|:-----:|:---:|:---:|:----------:|
+| $1$ | $l_1$ | $0$ | $0$ | $\theta_1$ |
+| $2$ | $l_2$ | $0$ | $0$ | $\theta_2$ |
+
+Creamos las variables simbólicas a utilizar:
 
 ```python
 l1,l2 = sp.symbols("l_1, l_2")
 theta1,theta2 = sp.symbols("theta_1, theta_2")
 ```
 
+Definimos las variables `dh_params` y `joint_types`, y se las pasamos como argumentos a la función `compute_jacobian`:
 
+```python
+dh_params = [(l1,0,0,theta1), (l2,0,0,theta2)]
+joint_types = ["R","R"]
 
+J = compute_jacobian(dh_params,joint_types)
+```
+
+Ahora en `J` tendremos almacenada la matriz jacobiana calculada. Si estás usando Jupyter o Google Colab, podrás ver la matriz *renderizada* de una manera muy conveniente. A continuación, se muestra la matriz que resulta del cálculo.
+
+$$
+\left[\begin{matrix}- l_{1} \sin{\left(\theta_{1} \right)} - l_{2} \sin{\left(\theta_{1} + \theta_{2} \right)} & - l_{2} \sin{\left(\theta_{1} + \theta_{2} \right)}\\l_{1} \cos{\left(\theta_{1} \right)} + l_{2} \cos{\left(\theta_{1} + \theta_{2} \right)} & l_{2} \cos{\left(\theta_{1} + \theta_{2} \right)}\\0 & 0\\0 & 0\\0 & 0\\1 & 1\end{matrix}\right]
+$$
+
+Puedes probar la función con otros manipuladores y verificar que funciona correctamente.
 
 ## Cómo calcularla numéricamente con NumPy
