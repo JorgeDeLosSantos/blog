@@ -199,6 +199,107 @@ $$
 \left[\begin{matrix}- l_{1} \sin{\left(\theta_{1} \right)} - l_{2} \sin{\left(\theta_{1} + \theta_{2} \right)} & - l_{2} \sin{\left(\theta_{1} + \theta_{2} \right)}\\l_{1} \cos{\left(\theta_{1} \right)} + l_{2} \cos{\left(\theta_{1} + \theta_{2} \right)} & l_{2} \cos{\left(\theta_{1} + \theta_{2} \right)}\\0 & 0\\0 & 0\\0 & 0\\1 & 1\end{matrix}\right]
 $$
 
-Puedes probar la función con otros manipuladores y verificar que funciona correctamente.
+Puedes probar la función con otros manipuladores y verificar que funciona correctamente. 
+
+Es posible también sustituir valores numéricos para evaluar la matriz jacobiana en una posición específica, para esto simplemente utilizamos el método `subs`:
+
+```python
+J.subs({
+    l1: 200,
+    l2: 200,
+    theta1: sp.pi/3,
+    theta2: sp.pi/4
+}).evalf(6)
+```
+
+Lo anterior nos devuelve la siguiente matriz:
+
+ $$ \displaystyle \left[\begin{matrix}-366.39 & -193.185\\48.2362 & -51.7638\\0 & 0\\0 & 0\\0 & 0\\1.0 & 1.0\end{matrix}\right]​ $$
 
 ## Cómo calcularla numéricamente con NumPy
+
+NumPy permite realizar cálculos numéricos con estructuras matriciales de forma muy eficiente. Aquí vamos a describir cómo implementar el algoritmo para calcular la matriz jacobiana usando NumPy como base para realizar las operaciones con matrices. 
+
+Lo primero que haremos es importar la librería:
+
+```python
+import numpy as np
+np.set_printoptions(suppress=True)
+```
+
+La instrucción `np.set_printoptions(suppress=True)` sirve para que NumPy muestre los valores numéricos con números decimales fijos en lugar de usar la notación exponencial.
+
+Definimos una función `dh_matrix_num` para calcular la matriz de Denavit-Hartenberg:
+
+```python
+def dh_matrix_num(a,alpha,d,theta):
+    ct = np.cos(theta)
+    st = np.sin(theta)
+    ca = np.cos(alpha)
+    sa = np.sin(alpha)
+    A = np.array([[ct, -st*ca,  st*sa, a*ct],
+                   [st,  ct*ca, -ct*sa, a*st],
+                   [0,     sa,     ca,    d ],
+                   [0,      0,      0,     1 ]])
+    return A
+```
+
+Creamos la función `compute_jacobian_num` para calcular la matriz jacobiana utilizando NumPy. Usamos el mismo algoritmo, únicamente hacemos los ajustes correspondientes en las funciones `eye` y `zeros`, así como en el uso de la función `np.cross`. Debemos recordar que en NumPy debe utilizarse el operador `@` para hacer multiplicaciones matriciales:
+
+```python
+def compute_jacobian_num(dh_params,joint_types):
+    n = len(joint_types)
+    Ts = [np.eye(4)]
+    for params in dh_params:
+        Ts.append( Ts[-1] @ dh_matrix_num(*params) )
+
+    on = Ts[n][:3,3]
+    J = np.zeros((6,n))
+    for i in range(n):
+        z_im1 = Ts[i][:3,2]
+        o_im1 = Ts[i][:3,3]
+
+        if joint_types[i] == "R":
+            Jv = np.cross(z_im1, on - o_im1)
+            Jw = z_im1
+        elif joint_types[i] == "P":
+            Jv = z_im1
+            Jw = np.zeros((3,1))
+        J[:3,i] = Jv
+        J[3:,i] = Jw
+
+    return J
+```
+
+Vamos a probar nuestro código con el mismo manipulador RR, considerando los siguientes valores numéricos:
+
+$$
+l_1 = l_2 = 200 \text{ mm}; \qquad
+q_1 = \frac{\pi}{3} \text{ rad}; \qquad
+q_2 = \frac{\pi}{4} \text{ rad}
+$$
+
+```python
+l1 = 200
+l2 = 200
+theta1 = np.pi/3
+theta2 = np.pi/4
+dh_params = [(l1,0,0,theta1), (l2,0,0,theta2)]
+joint_types = ["R","R"]
+
+J = compute_jacobian_num(dh_params,joint_types)
+print(J)
+```
+
+En la salida por consola podrás observar el valor de `J`:
+
+```python
+[[-366.39  -193.185]
+ [  48.236  -51.764]
+ [   0.       0.   ]
+ [   0.       0.   ]
+ [   0.       0.   ]
+ [   1.       1.   ]]
+```
+
+
