@@ -95,15 +95,17 @@ A continuaci√≥n, se muestra un algoritmo para calcular la matriz jacobiana geom√
 - $\text{joint\_types = } [j_1, j_2, \cdots, j_n]$
 
 1. Inicializar:
-   - $T_s \leftarrow [I_4]$
+   - $T_{s} \leftarrow [I_4]$
 
 2. Para $i = 0$ hasta $n-1$:
-   - $T_i \leftarrow T_s[i] \cdot \text{dh\_matrix}(a_i, \alpha_i, d_i, \theta_i)$
-   - $T_s \leftarrow [T_s, T_i] $
+   - $T_i \leftarrow T_{s}[i] \cdot \text{dh\_matrix}(a_i, \alpha_i, d_i, \theta_i)$
+   - $T_{s} \leftarrow [T_s, T_i] $
 
 3. $\mathbf{o}_{n} \leftarrow T_{s}[n]_{0:3,3}$
 
 4. $J \leftarrow 0^{6 \times n}$
+
+- X1
 
 5. Para $i = 0$ hasta $n-1$:
    - $\mathbf{o}_{i-1} \leftarrow T_{s}[i]_{0:3,3}$
