@@ -93,8 +93,8 @@ A continuaci√≥n, se muestra un algoritmo para calcular la matriz jacobiana geom√
 **Algoritmo: compute_jacobian(dh_params, joint_types)**
 
 **Entrada:**
-- $\text{dh\_params = }[(a_1, \alpha_1, d_1, \theta_1), (a_2, \alpha_2, d_2, \theta_2), \cdots, (a_n, \alpha_n, d_n, \theta_n)]$
-- $\text{joint\_types = } [j_1, j_2, \cdots, j_n]$
+- $\text{dh_params = }[(a_1, \alpha_1, d_1, \theta_1), (a_2, \alpha_2, d_2, \theta_2), \cdots, (a_n, \alpha_n, d_n, \theta_n)]$
+- $\text{joint_types = } [j_1, j_2, \cdots, j_n]$
 
 1. Inicializar:
    - $T_{s} \leftarrow [I_4]$
