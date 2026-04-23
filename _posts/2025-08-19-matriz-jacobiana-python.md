@@ -88,6 +88,8 @@ Esto es de mucha utilidad sobre en todo en dinámica y control de robots.
 
 A continuación, se muestra un algoritmo para calcular la matriz jacobiana geométrica para un manipulador de $n$ grados de libertad:
 
+<div style="background-color: #f5f5f5; padding: 5px; border-radius: 10px; border: solid 1px;">
+
 **Algoritmo: compute_jacobian(dh_params, joint_types)**
 
 **Entrada:**
@@ -119,6 +121,7 @@ A continuación, se muestra un algoritmo para calcular la matriz jacobiana geom�
 **Salida**
 - Jacobiano: $J \in \mathbb{R}^{6 \times n}$
 
+</div>
 
 ## Cómo calcularla simbólicamente con SymPy
 
