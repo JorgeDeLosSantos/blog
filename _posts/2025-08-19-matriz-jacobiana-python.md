@@ -88,6 +88,8 @@ Esto es de mucha utilidad sobre en todo en dinámica y control de robots.
 
 $\mathbf{o}_{n} \leftarrow T_{s}[n]_{0:3,3}$
 
+$$\mathbf{o}_{n} \leftarrow T_{s}[n]_{0:3,3}$$
+
 A continuación, se muestra un algoritmo para calcular la matriz jacobiana geométrica para un manipulador de $n$ grados de libertad:
 
 **Algoritmo: compute_jacobian(dh_params, joint_types)**
