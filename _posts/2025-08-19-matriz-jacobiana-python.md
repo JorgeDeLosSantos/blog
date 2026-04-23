@@ -86,10 +86,6 @@ Esto es de mucha utilidad sobre en todo en dinámica y control de robots.
 
 ## Algoritmo para calcularla
 
-$\mathbf{o}_{n} \leftarrow T_{s}[n]_{0:3,3}$
-
-$$\mathbf{o}_{n} \leftarrow T_{s}[n]_{0:3,3}$$
-
 A continuación, se muestra un algoritmo para calcular la matriz jacobiana geométrica para un manipulador de $n$ grados de libertad:
 
 **Algoritmo: compute_jacobian(dh_params, joint_types)**
@@ -105,22 +101,20 @@ A continuación, se muestra un algoritmo para calcular la matriz jacobiana geom�
    - $T_i \leftarrow T_{s}[i] \cdot \text{dh\_matrix}(a_i, \alpha_i, d_i, \theta_i)$
    - $T_{s} \leftarrow [T_s, T_i] $
 
-3. $\mathbf{o}_{n} \leftarrow T_{s}[n]_{0:3,3}$
+3. $\mathbf{o}\_{n} \leftarrow T_{s}[n]_{0:3,3}$
 
 4. $J \leftarrow 0^{6 \times n}$
 
-- X1
-
 5. Para $i = 0$ hasta $n-1$:
-   - $\mathbf{o}_{i-1} \leftarrow T_{s}[i]_{0:3,3}$
-   - $\mathbf{z}_{i-1} \leftarrow T_{s}[i]_{0:3,2}$
+   - $\mathbf{o}\_{i-1} \leftarrow T_{s}[i]_{0:3,3}$
+   - $\mathbf{z}\_{i-1} \leftarrow T_{s}[i]_{0:3,2}$
    - Si $j_i$ es revoluta:
      - $J_{v_i} \leftarrow \mathbf{z}_{i-1} \times (\mathbf{o}_{n} - \mathbf{o}_{i-1})$
      - $J_{\omega_i} \leftarrow \mathbf{z}_{i-1}$
    - Si $j_i$ es prismática:
      - $J_{v_i} \leftarrow \mathbf{z}_{i-1}$
      - $J_{\omega_i} \leftarrow \mathbf{0}$
-   - $J[:,i] \leftarrow \begin{bmatrix} J_{v_i} \\ J_{\omega_i} \end{bmatrix}$
+   - $J[:,i] \leftarrow \begin{bmatrix} J_{v_i} \\\\ J_{\omega_i} \end{bmatrix}$
 
 **Salida**
 - Jacobiano: $J \in \mathbb{R}^{6 \times n}$
