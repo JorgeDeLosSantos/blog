@@ -3,11 +3,18 @@ layout: default
 ---
 
 <article class="post-content">
-  {{ content }}
+  <header class="post-header" style="margin-bottom: 30px;">
+    <h1 style="font-size: 2.5em; margin-bottom: 10px;">{{ page.title }}</h1>
+    <time style="color: #666;">{{ page.date | date: "%d/%m/%Y" }}</time>
+  </header>
+
+  <div class="entry-content">
+    {{ content }}
+  </div>
 </article>
 
-<nav class="post-navigation" style="margin-top: 50px;">
-  <a href="{{ site.baseurl }}/" class="back-link">
+<nav class="post-navigation" style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px;">
+  <a href="{{ site.baseurl }}/" class="back-link" style="text-decoration: none; font-weight: bold; color: #2a7ae2;">
     ← Volver a la página principal
   </a>
 </nav>
