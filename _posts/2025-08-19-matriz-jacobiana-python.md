@@ -111,7 +111,7 @@ A continuación, se muestra un algoritmo para calcular la matriz jacobiana geom�
    - $\mathbf{o}\_{i-1} \leftarrow T_{s}[i]_{0:3,3}$
    - $\mathbf{z}\_{i-1} \leftarrow T_{s}[i]_{0:3,2}$
    - Si $j_i$ es revoluta:
-     - $J\_{v_i} \leftarrow \mathbf{z}_{i-1} \times (\mathbf{o}_{n} - \mathbf{o}_{i-1})$
+     - $J\_{v_i} \leftarrow \mathbf{z}\_{i-1} \times (\mathbf{o}\_{n} - \mathbf{o}\_{i-1})$
      - $J_{\omega_i} \leftarrow \mathbf{z}_{i-1}$
    - Si $j_i$ es prismática:
      - $J_{v_i} \leftarrow \mathbf{z}_{i-1}$
