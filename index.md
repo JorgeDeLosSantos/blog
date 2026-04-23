@@ -1,7 +1,7 @@
 ---
 layout: home
-title: "Bienvenido a mi blog"
+title: "Welcome"
 ---
 
-Aquí encontrarás mis artículos sobre **Python, Robótica y Ciencia de Datos** 🚀.
+Aquí hablamos sobre **Python, MATLAB y Robótica** 🚀.
 
