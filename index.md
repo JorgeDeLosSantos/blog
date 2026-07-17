@@ -1,7 +1,7 @@
 ---
 layout: home
-title: "Welcome"
+title: "P.J. De Los Santos"
 ---
 
-Aquí hablamos sobre **Python, MATLAB y Robótica** 🚀.
+Un poco de **Python, MATLAB y Robótica** 🤖.
 

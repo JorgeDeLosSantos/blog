@@ -5,7 +5,22 @@ layout: default
 <article class="post-content">
   <header class="post-header" style="margin-bottom: 30px;">
     <h1 style="font-size: 2.5em; margin-bottom: 10px;">{{ page.title }}</h1>
-    <time style="color: #666;">{{ page.date | date: "%d/%m/%Y" }}</time>
+    
+    <div class="post-meta" style="color: #666; margin-bottom: 15px;">
+      <time style="margin-right: 15px;">{{ page.date | date: "%d/%m/%Y" }}</time>
+      
+      <!-- Bloque para mostrar las etiquetas -->
+      {% if page.tags and page.tags.size > 0 %}
+        <span class="post-tags" style="font-size: 0.9em;">
+          | Etiqueta{% if page.tags.size > 1 %}s{% endif %}:
+          {% for tag in page.tags %}
+            <span style="background: #eee; padding: 2px 8px; border-radius: 3px; margin-left: 5px; color: #444;">
+              {{ tag }}
+            </span>
+          {% endfor %}
+        </span>
+      {% endif %}
+    </div>
   </header>
 
   <div class="entry-content">

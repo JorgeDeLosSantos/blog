@@ -32,6 +32,7 @@ donde $f$ representa la cinemática directa.
 La **matriz jacobiana** es una matriz que relaciona los cambios diferenciales en las articulaciones con los cambios diferenciales del efector final:
 
 $$ \dot{\mathbf{x}} = J(\mathbf{q}) \dot{\mathbf{q}}  $$
+
 donde:
 
 - $\dot{\mathbf{q}}$ es el vector de velocidades articulares
@@ -311,7 +312,7 @@ En la salida por consola podrás observar el valor de `J`:
 
 ## Conclusión: ¿Cuándo usar cada enfoque?
 
-Como hemos visto, ambas librerías son herramientas poderosas, pero brillan en escenarios diferentes:
+Como hemos visto, ambas librerías son herramientas poderosas, pero están pensadas para escenarios diferentes:
 
 * **SymPy** es ideal para la **etapa de diseño y análisis**. Te permite obtener las ecuaciones cerradas del robot, entender cómo influye cada variable geométrica y documentar formalmente tus investigaciones o tareas académicas.
 * **NumPy** es la opción definitiva para la **implementación en sistemas reales o simuladores**. Al trabajar directamente con arreglos de punto flotante, el cómputo es órdenes de magnitud más rápido, permitiendo recalcular el jacobiano en bucles de control de alta frecuencia.
