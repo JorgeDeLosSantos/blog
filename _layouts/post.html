@@ -10,13 +10,14 @@ layout: default
       <time style="margin-right: 15px;">{{ page.date | date: "%d/%m/%Y" }}</time>
       
       <!-- Bloque para mostrar las etiquetas -->
+      <!-- Bloque actualizado para enlazar las etiquetas -->
       {% if page.tags and page.tags.size > 0 %}
         <span class="post-tags" style="font-size: 0.9em;">
           | Etiqueta{% if page.tags.size > 1 %}s{% endif %}:
           {% for tag in page.tags %}
-            <span style="background: #eee; padding: 2px 8px; border-radius: 3px; margin-left: 5px; color: #444;">
+            <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}" style="background: #eee; padding: 2px 8px; border-radius: 3px; margin-left: 5px; color: #444; text-decoration: none; display: inline-block;">
               {{ tag }}
-            </span>
+            </a>
           {% endfor %}
         </span>
       {% endif %}
