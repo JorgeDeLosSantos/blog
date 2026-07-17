@@ -74,6 +74,8 @@ La matriz jacobiana también nos permite identificar configuraciones donde el ro
 
 $$ \det(J) = 0 $$
 
+
+
 ### Relacionar fuerzas
 
 La matriz jacobiana también permite *mapear* fuerzas ($\mathbf{F}$) y torques ($\boldsymbol{\mu}$) aplicadas en el extremo del manipulador a las fuerzas/torques que experimentan las articulaciones:
@@ -307,4 +309,11 @@ En la salida por consola podrás observar el valor de `J`:
  [   1.       1.   ]]
 ```
 
+## Conclusión: ¿Cuándo usar cada enfoque?
 
+Como hemos visto, ambas librerías son herramientas poderosas, pero brillan en escenarios diferentes:
+
+* **SymPy** es ideal para la **etapa de diseño y análisis**. Te permite obtener las ecuaciones cerradas del robot, entender cómo influye cada variable geométrica y documentar formalmente tus investigaciones o tareas académicas.
+* **NumPy** es la opción definitiva para la **implementación en sistemas reales o simuladores**. Al trabajar directamente con arreglos de punto flotante, el cómputo es órdenes de magnitud más rápido, permitiendo recalcular el jacobiano en bucles de control de alta frecuencia.
+
+Espero que lo que hemos revisado te sea útil para implementar tu propia versión de cálculo de la matriz jacobiana en un manipulador serial. 
