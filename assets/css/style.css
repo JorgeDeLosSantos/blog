@@ -12,3 +12,21 @@
   background-color: #2a7ae2;
   color: white;
 }
+
+/* Etiquetas dentro de los posts */
+.post-tag {
+  background: #eee;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-left: 5px;
+  color: #444;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.post-tag:hover {
+  background: #2a7ae2;   /* azul del tema */
+  color: #fff;
+  transform: translateY(-2px);  /* leve "levantamiento" al pasar el ratón */
+}
