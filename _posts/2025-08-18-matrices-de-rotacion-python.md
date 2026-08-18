@@ -73,39 +73,39 @@ En la sección anterior utilizamos directamente una matriz de rotación sin preo
 Consideremos nuevamente un vector unitario sobre el eje (x):
 
 $$
-\vec{e}_x =
+\hat{x} =
 \begin{bmatrix}
-1 \
+1 \\
 0
 \end{bmatrix}
 $$
 
-Si rotamos este vector un ángulo (\theta) en sentido antihorario, sus nuevas componentes pueden obtenerse directamente utilizando trigonometría:
+Si rotamos este vector un ángulo $\theta$ en sentido antihorario, sus nuevas componentes pueden obtenerse directamente utilizando trigonometría:
 
 $$
-\vec{e}_x' =
+\hat{x'} =
 \begin{bmatrix}
-\cos\theta \
+\cos\theta \\
 \sin\theta
 \end{bmatrix}
 $$
 
-Ahora hagamos lo mismo con el vector unitario correspondiente al eje (y):
+Ahora hagamos lo mismo con el vector unitario correspondiente al eje $y$:
 
 $$
-\vec{e}_y =
+\hat{y} =
 \begin{bmatrix}
-0 \
+0 \\
 1
 \end{bmatrix}
 $$
 
-Después de rotarlo el mismo ángulo (\theta), obtenemos:
+Después de rotarlo el mismo ángulo $\theta$, obtenemos:
 
 $$
-\vec{e}_y' =
+\hat{y'} =
 \begin{bmatrix}
--\sin\theta \
+-\sin\theta \\
 \cos\theta
 \end{bmatrix}
 $$
@@ -115,8 +115,8 @@ Si colocamos estos dos vectores rotados como columnas de una matriz obtenemos:
 $$
 R(\theta) =
 \begin{bmatrix}
-\cos\theta & -\sin\theta \
-\sin\theta & \cos\theta
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta 
 \end{bmatrix}
 $$
 
@@ -130,37 +130,37 @@ En tres dimensiones podemos definir matrices equivalentes para representar rotac
 
 Adoptaremos la convención habitual de considerar positivas las rotaciones que siguen la **regla de la mano derecha**.
 
-Una rotación de un ángulo (\theta) alrededor del eje (x) está dada por:
+Una rotación de un ángulo $\theta$ alrededor del eje $x$ está dada por:
 
 $$
 R_x(\theta) =
 \begin{bmatrix}
-1 & 0 & 0 \
-0 & \cos\theta & -\sin\theta \
+1 & 0 & 0 \\ 
+0 & \cos\theta & -\sin\theta \\
 0 & \sin\theta & \cos\theta
 \end{bmatrix}
 $$
 
-Observa que la componente asociada al eje (x) permanece sin cambios. La rotación ocurre únicamente en el plano (yz).
+Observa que la componente asociada al eje $x$ permanece sin cambios. La rotación ocurre únicamente en el plano $yz$.
 
-De forma similar, una rotación alrededor del eje (y) se representa mediante:
+De forma similar, una rotación alrededor del eje $y$ se representa mediante:
 
 $$
 R_y(\theta) =
 \begin{bmatrix}
-\cos\theta & 0 & \sin\theta \
-0 & 1 & 0 \
+\cos\theta & 0 & \sin\theta \\
+0 & 1 & 0 \\
 -\sin\theta & 0 & \cos\theta
 \end{bmatrix}
 $$
 
-y una rotación alrededor del eje (z) mediante:
+y una rotación alrededor del eje $z$ mediante:
 
 $$
 R_z(\theta) =
 \begin{bmatrix}
-\cos\theta & -\sin\theta & 0 \
-\sin\theta & \cos\theta & 0 \
+\cos\theta & -\sin\theta & 0 \\
+\sin\theta & \cos\theta & 0 \\
 0 & 0 & 1
 \end{bmatrix}
 $$
@@ -172,19 +172,19 @@ Por ejemplo, si queremos rotar el vector
 $$
 \vec{u} =
 \begin{bmatrix}
-1 \
-0 \
+1 \\
+0 \\
 0
 \end{bmatrix}
 $$
 
-un ángulo de (90^\circ) alrededor del eje (z), utilizamos:
+un ángulo de $90^\circ$ alrededor del eje $z$, utilizamos:
 
 $$
 R_z(90^\circ) =
 \begin{bmatrix}
-0 & -1 & 0 \
-1 & 0 & 0 \
+0 & -1 & 0 \\
+1 & 0 & 0 \\
 0 & 0 & 1
 \end{bmatrix}
 $$
@@ -192,17 +192,15 @@ $$
 y obtenemos:
 
 $$
-R_z(90^\circ)\vec{u}
-====================
-
+R_z(90^\circ)\vec{u} = 
 \begin{bmatrix}
-0 \
-1 \
+0 \\
+1 \\
 0
 \end{bmatrix}
 $$
 
-Como era de esperarse, el vector inicialmente alineado con el eje (x) queda ahora alineado con el eje (y).
+Como era de esperarse, el vector inicialmente alineado con el eje $x$ queda ahora alineado con el eje $y$.
 
 En robótica estas matrices no solamente nos permiten rotar vectores. También pueden utilizarse para describir **la orientación de un sistema de referencia con respecto a otro**, algo que necesitaremos constantemente al estudiar la cinemática de manipuladores.
 
@@ -210,7 +208,7 @@ En robótica estas matrices no solamente nos permiten rotar vectores. También p
 
 Las matrices de rotación poseen algunas propiedades que las distinguen de una matriz cualquiera.
 
-En tres dimensiones, una matriz de rotación pertenece al conjunto denominado (SO(3)), el grupo especial ortogonal de dimensión 3. Esto significa que debe satisfacer dos condiciones fundamentales.
+En tres dimensiones, una matriz de rotación pertenece al conjunto denominado $SO(3)$, el grupo especial ortogonal de dimensión 3. Esto significa que debe satisfacer dos condiciones fundamentales.
 
 La primera es:
 
@@ -234,10 +232,9 @@ Por ejemplo:
 
 $$
 R_z(\theta)^{-1}
-================
-
-# R_z(-\theta)
-
+=
+R_z(-\theta)
+=
 R_z(\theta)^T
 $$
 
@@ -256,9 +253,9 @@ Si escribimos:
 $$
 R =
 \begin{bmatrix}
-\vert & \vert & \vert \
-\vec{r}_1 & \vec{r}_2 & \vec{r}_3 \
-\vert & \vert & \vert
+\vert & \vert & \vert \\ 
+\vec{r}_1 & \vec{r}_2 & \vec{r}_3 \\
+\vert & \vert & \vert \\
 \end{bmatrix}
 $$
 
@@ -268,7 +265,7 @@ $$
 \vec{r}_i^T\vec{r}_i = 1
 $$
 
-y para (i\neq j):
+y para $i\neq j$:
 
 $$
 \vec{r}_i^T\vec{r}_j = 0
@@ -292,7 +289,7 @@ Esto tiene sentido desde el punto de vista geométrico: al rotar un vector únic
 
 Una de las ventajas de representar rotaciones mediante matrices es que podemos combinar varias rotaciones utilizando simplemente multiplicación matricial.
 
-Supongamos, por ejemplo, que realizamos una rotación (R_1) y posteriormente una rotación (R_2). Si inicialmente tenemos un vector (\vec{v}), después de la primera rotación obtenemos:
+Supongamos, por ejemplo, que realizamos una rotación $R_1$ y posteriormente una rotación $R_2$. Si inicialmente tenemos un vector $\vec{v}$, después de la primera rotación obtenemos:
 
 $$
 \vec{v}' = R_1\vec{v}
@@ -324,7 +321,7 @@ $$
 R_2R_1 \neq R_1R_2
 $$
 
-La multiplicación de matrices no es conmutativa y, por lo tanto, aplicar primero una rotación alrededor de (x) y después una alrededor de (z) no produce necesariamente el mismo resultado que hacerlo en el orden contrario.
+La multiplicación de matrices no es conmutativa y, por lo tanto, aplicar primero una rotación alrededor de $x$ y después una alrededor de $z$ no produce necesariamente el mismo resultado que hacerlo en el orden contrario.
 
 Esta propiedad será fundamental cuando estudiemos representaciones de orientación como los ángulos de Euler y, posteriormente, la cinemática de robots manipuladores.
 
@@ -338,7 +335,7 @@ Cuando conocemos los valores concretos de los ángulos y queremos realizar cálc
 
 ### La forma simbólica
 
-Comencemos definiendo simbólicamente una matriz de rotación alrededor del eje (z):
+Comencemos definiendo simbólicamente una matriz de rotación alrededor del eje $z$:
 
 ```python
 import sympy as sp
@@ -369,8 +366,8 @@ El resultado es:
 
 $$
 \begin{bmatrix}
-\cos\theta \
-\sin\theta \
+\cos\theta \\
+\sin\theta \\
 0
 \end{bmatrix}
 $$
@@ -386,8 +383,8 @@ produce la matriz identidad:
 $$
 I =
 \begin{bmatrix}
-1 & 0 & 0 \
-0 & 1 & 0 \
+1 & 0 & 0 \\
+0 & 1 & 0 \\
 0 & 0 & 1
 \end{bmatrix}
 $$
@@ -432,7 +429,7 @@ La matriz resultante representa la composición de ambas rotaciones.
 
 Cuando los ángulos de rotación son conocidos podemos realizar los cálculos utilizando NumPy.
 
-Por ejemplo, definamos una rotación de (90^\circ) alrededor del eje (z):
+Por ejemplo, definamos una rotación de $90^\circ$ alrededor del eje $z$:
 
 ```python
 import numpy as np
@@ -498,6 +495,6 @@ y:
 np.linalg.det(Rz)
 ```
 
-obteniendo una matriz identidad en el primer caso y un determinante aproximadamente igual a (1) en el segundo.
+obteniendo una matriz identidad en el primer caso y un determinante aproximadamente igual a $1$ en el segundo.
 
 Las matrices de rotación constituyen una de las herramientas fundamentales para describir orientación y movimiento en robótica. Más adelante veremos que también forman parte de objetos más generales, como las **matrices de transformación homogénea**, que nos permitirán representar simultáneamente la posición y orientación de los sistemas de referencia asociados a un robot.
