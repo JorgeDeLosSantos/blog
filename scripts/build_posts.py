@@ -67,7 +67,7 @@ def convert(path):
     # ![png](assets/notebooks/<stem>/<archivo>.png)
     # Estas rutas fallan dentro de las URLs anidadas de los posts de Jekyll.
     image_link = re.compile(
-        rf"(!\\[[^\\]]*\\]\\()({re.escape(relative_dir)}/[^)\\s]+)(\\))"
+        rf"(!\[[^\]]*\]\()({re.escape(relative_dir)}/[^)\s]+)(\))"
     )
     markdown = image_link.sub(
         lambda match: (
