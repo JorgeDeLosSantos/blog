@@ -6,7 +6,6 @@ Uso: python scripts/build_posts.py [notebooks/archivo.ipynb ...]
 import argparse
 import json
 import re
-import shutil
 from pathlib import Path
 
 import nbformat
@@ -53,11 +52,13 @@ def convert(path):
 
     # Solo usa los outputs guardados; NO ejecuta celdas durante la conversión.
     target_assets = ASSETS / stem
-    if target_assets.exists():
-        shutil.rmtree(target_assets)
-    for output_path, data in resources.get("outputs", {}).items():
-        filename = Path(output_path).name
+    # No borrar la carpeta: Windows puede impedirlo si tiene archivos abiertos.
+    # Solo sobrescribimos los recursos generados; los obsoletos se limpian manualmente.
+    outputs = resources.get("outputs", {})
+    if outputs:
         target_assets.mkdir(parents=True, exist_ok=True)
+    for output_path, data in outputs.items():
+        filename = Path(output_path).name
         (target_assets / filename).write_bytes(
             data.encode("utf-8") if isinstance(data, str) else data
         )
