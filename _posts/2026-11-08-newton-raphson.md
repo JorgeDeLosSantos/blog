@@ -89,7 +89,7 @@ plt.show()
 
 
     
-![svg](assets/notebooks/2026-11-08-newton-raphson/2026-11-08-newton-raphson_4_0.svg)
+![svg]({{ '/assets/notebooks/2026-11-08-newton-raphson/2026-11-08-newton-raphson_4_0.svg' | relative_url }})
     
 
 
@@ -201,7 +201,7 @@ viz.plot(
 
 
     
-![png](assets/notebooks/2026-11-08-newton-raphson/2026-11-08-newton-raphson_16_1.png)
+![png]({{ '/assets/notebooks/2026-11-08-newton-raphson/2026-11-08-newton-raphson_16_1.png' | relative_url }})
     
 
 
