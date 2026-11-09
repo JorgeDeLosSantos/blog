@@ -62,8 +62,23 @@ def convert(path):
         (target_assets / filename).write_bytes(
             data.encode("utf-8") if isinstance(data, str) else data
         )
-        liquid_url = "{{ '/assets/notebooks/" + stem + "/" + filename + "' | relative_url }}"
-        markdown = markdown.replace(f"({output_path})", f"({liquid_url})")
+
+    # nbconvert enlaza las figuras con rutas relativas, por ejemplo:
+    # ![png](assets/notebooks/<stem>/<archivo>.png)
+    # Estas rutas fallan dentro de las URLs anidadas de los posts de Jekyll.
+    image_link = re.compile(
+        rf"(!\[[^\]]*\]\()({re.escape(relative_dir)}/[^)\s]+)(\))"
+    )
+    markdown = image_link.sub(
+        lambda match: (
+            match.group(1)
+            + "{{ '/"
+            + match.group(2)
+            + "' | relative_url }}"
+            + match.group(3)
+        ),
+        markdown,
+    )
 
     POSTS.mkdir(parents=True, exist_ok=True)
     target = POSTS / f"{stem}.md"
