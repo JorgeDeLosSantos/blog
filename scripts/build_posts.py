@@ -19,95 +19,12 @@ NAME = re.compile(r"^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
 def normalize_latex_outputs(notebook):
-    """Presenta los resultados LaTeX de las celdas como ecuaciones en bloque.
+    """Convierte los resultados LaTeX de celdas en ecuaciones de bloque.
 
-    Las salidas de SymPy suelen llegar como '$\\displaystyle ... 
-    path = path.resolve()
-    if not path.is_relative_to(NOTEBOOKS.resolve()):
-        raise ValueError(f"El archivo debe estar en notebooks/: {path}")
-    stem = path.stem
-    if not NAME.fullmatch(stem):
-        raise ValueError(f"Nombre esperado: YYYY-MM-DD-slug.ipynb: {path.name}")
-
-    notebook = nbformat.read(path, as_version=4)
-    normalize_latex_outputs(notebook)
-    post = notebook.metadata.get("post", {})
-    title = post.get("title")
-    if not isinstance(title, str) or not title.strip():
-        raise ValueError(f"Falta metadata.post.title en {path.name}")
-
-    fields = ["---", "layout: post",
-              f"title: {json.dumps(title, ensure_ascii=False)}",
-              f"date: {json.dumps(stem[:10])}"]
-    for name in ("categories", "tags"):
-        values = post.get(name, [])
-        if not isinstance(values, list) or not all(isinstance(v, str) for v in values):
-            raise ValueError(f"metadata.post.{name} debe ser una lista de textos")
-        fields.append(f"{name}: {json.dumps(values, ensure_ascii=False)}")
-    if post.get("author"):
-        fields.append(f"author: {json.dumps(str(post['author']), ensure_ascii=False)}")
-    fields.extend(["---", ""])
-
-    relative_dir = f"assets/notebooks/{stem}"
-    markdown, resources = MarkdownExporter().from_notebook_node(
-        notebook,
-        resources={"unique_key": stem, "output_files_dir": relative_dir},
-    )
-
-    # Solo usa los outputs guardados; NO ejecuta celdas durante la conversión.
-    target_assets = ASSETS / stem
-    # No borrar la carpeta: Windows puede impedirlo si tiene archivos abiertos.
-    # Solo sobrescribimos los recursos generados; los obsoletos se limpian manualmente.
-    outputs = resources.get("outputs", {})
-    if outputs:
-        target_assets.mkdir(parents=True, exist_ok=True)
-    for output_path, data in outputs.items():
-        filename = Path(output_path).name
-        (target_assets / filename).write_bytes(
-            data.encode("utf-8") if isinstance(data, str) else data
-        )
-
-    # nbconvert enlaza las figuras con rutas relativas, por ejemplo:
-    # ![png](assets/notebooks/<stem>/<archivo>.png)
-    # Estas rutas fallan dentro de las URLs anidadas de los posts de Jekyll.
-    image_link = re.compile(
-        rf"(!\[[^\]]*\]\()({re.escape(relative_dir)}/[^)\s]+)(\))"
-    )
-    markdown = image_link.sub(
-        lambda match: (
-            match.group(1)
-            + "{{ '/"
-            + match.group(2)
-            + "' | relative_url }}"
-            + match.group(3)
-        ),
-        markdown,
-    )
-
-    POSTS.mkdir(parents=True, exist_ok=True)
-    target = POSTS / f"{stem}.md"
-    target.write_text("\n".join(fields) + markdown.rstrip() + "\n", encoding="utf-8")
-    print(f"Generado: {target.relative_to(ROOT)}")
-
-
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("notebooks", nargs="*", type=Path)
-    args = parser.parse_args()
-    paths = args.notebooks or sorted(NOTEBOOKS.glob("*.ipynb"))
-    if not paths:
-        parser.error("No hay notebooks en notebooks/")
-    for path in paths:
-        convert(path)
-
-
-if __name__ == "__main__":
-    main()
-.
-    Al pasarlas a '$ ... $', MathJax puede representar matrices y
-    expresiones grandes como bloques independientes. No se modifica el
-    Markdown escrito por el autor ni se ejecuta ninguna celda.
+    Solo modifica el formato MIME text/latex de los resultados guardados.
+    No modifica el Markdown escrito por el autor ni ejecuta celdas.
     """
+    display_delimiter = "$" * 2
     for cell in notebook.cells:
         if cell.cell_type != "code":
             continue
@@ -116,14 +33,18 @@ if __name__ == "__main__":
             latex = data.get("text/latex")
             if not isinstance(latex, str):
                 continue
+
             latex = latex.strip()
             if (
                 latex.startswith("$")
                 and latex.endswith("$")
-                and not latex.startswith("$")
-                and not latex.endswith("$")
+                and not latex.startswith(display_delimiter)
+                and not latex.endswith(display_delimiter)
             ):
-                data["text/latex"] = "$\n" + latex[1:-1].strip() + "\n$"
+                data["text/latex"] = (
+                    display_delimiter + "\n" + latex[1:-1].strip()
+                    + "\n" + display_delimiter
+                )
 
 
 def convert(path):
@@ -135,6 +56,7 @@ def convert(path):
         raise ValueError(f"Nombre esperado: YYYY-MM-DD-slug.ipynb: {path.name}")
 
     notebook = nbformat.read(path, as_version=4)
+    normalize_latex_outputs(notebook)
     post = notebook.metadata.get("post", {})
     title = post.get("title")
     if not isinstance(title, str) or not title.strip():
