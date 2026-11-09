@@ -1,0 +1,4 @@
+nbconvert>=7
+nbformat>=5
+numpy
+matplotlib
