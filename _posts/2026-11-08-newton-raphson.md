@@ -121,7 +121,9 @@ RR.T
 
 
 
-$\displaystyle \left[\begin{matrix}\cos{\left(q_{1} + q_{2} \right)} & - \sin{\left(q_{1} + q_{2} \right)} & 0 & 100 \cos{\left(q_{1} + q_{2} \right)} + 100 \cos{\left(q_{1} \right)}\\\sin{\left(q_{1} + q_{2} \right)} & \cos{\left(q_{1} + q_{2} \right)} & 0 & 100 \sin{\left(q_{1} + q_{2} \right)} + 100 \sin{\left(q_{1} \right)}\\0 & 0 & 1 & 0\\0 & 0 & 0 & 1\end{matrix}\right]$
+$$
+\displaystyle \left[\begin{matrix}\cos{\left(q_{1} + q_{2} \right)} & - \sin{\left(q_{1} + q_{2} \right)} & 0 & 100 \cos{\left(q_{1} + q_{2} \right)} + 100 \cos{\left(q_{1} \right)}\\\sin{\left(q_{1} + q_{2} \right)} & \cos{\left(q_{1} + q_{2} \right)} & 0 & 100 \sin{\left(q_{1} + q_{2} \right)} + 100 \sin{\left(q_{1} \right)}\\0 & 0 & 1 & 0\\0 & 0 & 0 & 1\end{matrix}\right]
+$$
 
 
 
@@ -133,7 +135,9 @@ RR.J
 
 
 
-$\displaystyle \left[\begin{matrix}- 100 \sin{\left(q_{1} + q_{2} \right)} - 100 \sin{\left(q_{1} \right)} & - 100 \sin{\left(q_{1} + q_{2} \right)}\\100 \cos{\left(q_{1} + q_{2} \right)} + 100 \cos{\left(q_{1} \right)} & 100 \cos{\left(q_{1} + q_{2} \right)}\\0 & 0\\0 & 0\\0 & 0\\1 & 1\end{matrix}\right]$
+$$
+\displaystyle \left[\begin{matrix}- 100 \sin{\left(q_{1} + q_{2} \right)} - 100 \sin{\left(q_{1} \right)} & - 100 \sin{\left(q_{1} + q_{2} \right)}\\100 \cos{\left(q_{1} + q_{2} \right)} + 100 \cos{\left(q_{1} \right)} & 100 \cos{\left(q_{1} + q_{2} \right)}\\0 & 0\\0 & 0\\0 & 0\\1 & 1\end{matrix}\right]
+$$
 
 
 
@@ -157,7 +161,9 @@ RR.q_dot(1)
 
 
 
-$\displaystyle \dot{q}_{1}$
+$$
+\displaystyle \dot{q}_{1}
+$$
 
 
 
@@ -169,7 +175,9 @@ RR.q(1)
 
 
 
-$\displaystyle q_{1}$
+$$
+\displaystyle q_{1}
+$$
 
 
 
@@ -213,7 +221,9 @@ RR.T
 
 
 
-$\displaystyle \left[\begin{matrix}\cos{\left(q_{1} + q_{2} \right)} & - \sin{\left(q_{1} + q_{2} \right)} & 0 & 100 \cos{\left(q_{1} + q_{2} \right)} + 100 \cos{\left(q_{1} \right)}\\\sin{\left(q_{1} + q_{2} \right)} & \cos{\left(q_{1} + q_{2} \right)} & 0 & 100 \sin{\left(q_{1} + q_{2} \right)} + 100 \sin{\left(q_{1} \right)}\\0 & 0 & 1 & 0\\0 & 0 & 0 & 1\end{matrix}\right]$
+$$
+\displaystyle \left[\begin{matrix}\cos{\left(q_{1} + q_{2} \right)} & - \sin{\left(q_{1} + q_{2} \right)} & 0 & 100 \cos{\left(q_{1} + q_{2} \right)} + 100 \cos{\left(q_{1} \right)}\\\sin{\left(q_{1} + q_{2} \right)} & \cos{\left(q_{1} + q_{2} \right)} & 0 & 100 \sin{\left(q_{1} + q_{2} \right)} + 100 \sin{\left(q_{1} \right)}\\0 & 0 & 1 & 0\\0 & 0 & 0 & 1\end{matrix}\right]
+$$
 
 
 
